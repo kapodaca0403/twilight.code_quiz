@@ -3,9 +3,17 @@
 // and somewhere for the user to add their initials to store their previous scores.
 
 // when clicking the start button, the timer starts
-var timerEl = document.querySelector("timer");
+
+var timerEl = document.querySelector("timerEl");
 var mainEl = document.getElementById("main");
-var seconds = 55;
+var seconds = 0;
+var scoresDis = document.querySelector("card")
+var quizEl = document.getElementById("quiz");
+var startQuizEl = document.getElementById("startQuiz");
+var scores = document.getElementById("score");
+var choicesEl = document.querySelector("choices")
+
+var questionIndex = 0; 
 
 function timer() {
   var time = setInterval(function () {
@@ -20,31 +28,59 @@ function timer() {
 function message() {
   timerEl.textContent = "GAME OVER";
 }
-timer();
+
 
 //addEventListener. (click)
 
 // li with different answers to choose from
+
+
+
 var question1 = " Who is the main character? ";
 var question2 = " Who did Bella end up falling in love with? ";
 var question3 = " What is Bella's father's name? ";
 var question4 = " What was the color of Bella's comforter when she first gets to Forks?";
 var question5 = " What animal does Jacob transform into?";
 
-function (question1); {
-A. Bella
-B. Jacob
-C. Charlie 
-D. Jasper 
-if (A === true) {
-  correct();
+var questions = [{
+questionsNum: "question1", 
+text: " Who is the main character? ",
+answers: ["A. Bella", "B. Jacob", "C. Charlie", "D. Jasper"],
+correctAn: "A. Bella"
+}, //create each question object 
 
-} else if ( B, C, D === false)
- wrong(); 
+
+]
+
+function startquiz() {
+seconds= 55;
+questionIndex = 0;
+scoresDis.setAttribute("style", "display: none")
+mainEl.setAttribute("style", "display: block")
+timer()
+timerEl.textContent = seconds
+getQuestion()
+
+
 }
 
 
-function (question2); { 
+function getQuestion(); {
+var question1 = questions[questionIndex]
+var texQues = document.getElementById("question")
+textQues.textContent = question1.text
+choicesEl = ""
+question1.answers.forEach( function (answer) {
+  var answerbttn = document.createElement("button")
+  answerbttn.setAttribute("class", "answer")
+  answerbttn.textContent = answer
+  choicesEl.appendChild(answerbttn)
+  answerbttn.addEventListener("click", answerclick) //write answer click function, that compares answers that is definded in question object 
+});
+}
+
+
+function getQuestion2 (); { 
 A. Jacob
 B. Carlisle
 C. Edward 
@@ -55,7 +91,7 @@ if (C === true) {
 wrong(); 
 }
 
-function (question3); {
+function getQuestion3(); {
   A. Sam
   B. Charlie
   C. Seth
@@ -67,7 +103,7 @@ if (B === true) {
   }
 }
 
-function (question4); {
+function getQuestion4(); {
   A. Red
   B. Blue
   C. Pink
@@ -78,7 +114,7 @@ if ( D === true) {
   wrong(); 
 }
 
-function (question5); 
+function getQuestion5(); 
 {
   A. Werewolf 
   B. Vampire
@@ -89,11 +125,24 @@ if (A === true) {
 } else if (B, C, D === false)
   wrong(); 
 }
+getQuestion1(); 
+getQuestion2(); 
+getQuestion3(); 
+getQuestion4(); 
+getQuestion5(); 
+
+timerEl.setAttribute("style", "display: none")
+scoresDis.setAttribute("style", "display: none")
 
 
+
+startQuizEl.addEventListener("click", startquiz)
 
 // when a question is answered wrong the timer subtracts time
+// reset timer , if correct then correct
+// advance current question index 
+// if questionindex is equal to lenght, then end of quiz or start next funtion
 
 // when the timer hits zero or all questions are answered then GAME OVER
 
-// when GAME OVER user is able to submit their initials and get their score
+// when GAME OVER user is able to submit their initials and get their score into local storage 
